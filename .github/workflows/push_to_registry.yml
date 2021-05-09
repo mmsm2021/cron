@@ -9,11 +9,15 @@ jobs:
         steps:
             - name: Check out the repo
               uses: actions/checkout@v2
-            - name: Push to Registry
-              uses: docker/build-push-action@v1
+            - name: Login to Registry
+              uses: docker/login-action@v1
               with:
+                  registry: registry.randomphp.com
                   username: ${{ secrets.REGISTRY_USERNAME }}
                   password: ${{ secrets.REGISTRY_PASSWORD }}
-                  repository: mmsm/cron
-                  registry: registry.randomphp.com
-                  tag_with_ref: true
+            - name: Build Image and push to Registry
+              id: docker_build
+              uses: docker/build-push-action@v2
+              with:
+                  push: true
+                  tags: mmsm/cron:latest
