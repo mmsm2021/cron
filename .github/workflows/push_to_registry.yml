@@ -1,0 +1,19 @@
+name: Push Docker image to Registry
+on:
+    release:
+        types: [published]
+jobs:
+    push_to_registry:
+        name: Push Docker image to Registry
+        runs-on: self-hosted
+        steps:
+            - name: Check out the repo
+              uses: actions/checkout@v2
+            - name: Push to Registry
+              uses: docker/build-push-action@v1
+              with:
+                  username: ${{ secrets.REGISTRY_USERNAME }}
+                  password: ${{ secrets.REGISTRY_PASSWORD }}
+                  repository: mmsm/cron
+                  registry: registry.randomphp.com
+                  tag_with_ref: true
