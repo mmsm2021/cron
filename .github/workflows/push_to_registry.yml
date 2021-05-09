@@ -15,5 +15,5 @@ jobs:
                   username: ${{ secrets.REGISTRY_USERNAME }}
                   password: ${{ secrets.REGISTRY_PASSWORD }}
                   repository: mmsm/cron
-                  registry: ${{ secrets.REGISTRY_URL }}
+                  registry: registry.randomphp.com
                   tag_with_ref: true
