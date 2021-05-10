@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
 try {
     $successCodes = [200, 201, 202, 203, 204, 205, 206, 207, 208, 226];
     $container = (new \DI\ContainerBuilder())
