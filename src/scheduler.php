@@ -9,7 +9,8 @@ use GO\Scheduler;
 $scheduler = new Scheduler();
 
 $scheduler->php(__DIR__ . '/jobs/download_auth0_jwks.php')
-    ->hourly();
+    ->hourly()
+    ->output('download_auth0_jwks.log', true);
 
 $scheduler->run();
 chdir($cwd);
