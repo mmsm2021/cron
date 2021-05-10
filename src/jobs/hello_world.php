@@ -1,3 +1,3 @@
 <?php
 
-echo 'Hello World' . PHP_EOL;
+echo 'testing' . PHP_EOL;
