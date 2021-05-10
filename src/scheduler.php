@@ -8,9 +8,8 @@ use GO\Scheduler;
 
 $scheduler = new Scheduler();
 
-$scheduler->php(__DIR__ . '/jobs/hello_world.php')
-    ->everyMinute(5)
-    ->output('my_file.log', true);
+$scheduler->php(__DIR__ . '/jobs/download_auth0_jwks.php')
+    ->hourly();
 
 $scheduler->run();
 chdir($cwd);
