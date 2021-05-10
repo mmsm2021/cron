@@ -8,4 +8,6 @@ RUN wget https://getcomposer.org/download/latest-2.x/composer.phar --output-docu
     chmod +x /usr/local/bin/composer && \
     composer install --no-dev
 
+VOLUME /keys
+
 ENTRYPOINT ["tail", "-f", "/dev/null"]
