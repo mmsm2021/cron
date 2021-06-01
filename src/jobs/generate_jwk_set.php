@@ -19,6 +19,7 @@ if (file_exists($internalJwksFile)) {
 }
 
 $now = time();
+$newest = $now;
 $ids = [];
 
 // Remove expired keys
@@ -28,6 +29,9 @@ foreach ($keyset->getKeys() as $key) {
     if (!isset($data['exp']) || !is_numeric($data['exp']) || $now > $data['exp']) {
         $keyset->remove($key);
         continue;
+    }
+    if ($data['exp'] > $newest) {
+        $newest = $data['exp'];
     }
     $ids[] = $key->getKeyId();
 }
@@ -39,13 +43,13 @@ for ($i = 0; $i < $missingAmount; $i++) {
     do {
         $kid = \Ramsey\Uuid\Uuid::uuid4()->toString();
     } while(in_array($kid, $ids));
-    $offset = 23+(24*$i);
+    $offset = 24+(24*$i);
     $keyset->add(new \SimpleJWT\Keys\SymmetricKey([
         'kty' => \SimpleJWT\Keys\SymmetricKey::KTY,
         'k' => \SimpleJWT\Util\Util::base64url_encode(random_bytes(64)),
         'alg' => 'HS256',
         'kid' => $kid,
-        'exp' => strtotime("+{$offset} hours"),
+        'exp' => strtotime("+{$offset} hours", $newest),
     ], 'php'));
     $ids[] = $kid;
 }
